@@ -3,123 +3,81 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sky Money Pro | Elite Admin Dashboard</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <title>Sky Money Pro | Master Admin AI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --primary: #6366f1; --primary-dark: #4f46e5;
-            --bg: #f8fafc; --sidebar: #0f172a;
-            --white: #ffffff; --text-main: #1e293b;
-            --text-muted: #64748b; --danger: #ef4444;
-            --success: #10b981; --warning: #f59e0b;
+            --primary: #6366f1; --sidebar: #0f172a; --bg: #f8fafc;
+            --success: #10b981; --danger: #ef4444; --warning: #f59e0b;
         }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; margin: 0; background: var(--bg); display: flex; }
 
-        body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            margin: 0; background: var(--bg); color: var(--text-main);
-            display: flex; min-height: 100vh;
-        }
-
-        /* Sidebar */
-        .sidebar {
-            width: 280px; background: var(--sidebar); color: white;
-            padding: 30px 20px; display: flex; flex-direction: column;
-            position: fixed; height: 100vh;
-        }
-
-        .logo { font-size: 24px; font-weight: 800; margin-bottom: 40px; color: var(--primary); text-align: center; }
-        .logo span { color: white; }
-
-        .nav-menu { list-style: none; padding: 0; margin: 0; }
-        .nav-item {
-            padding: 15px 20px; border-radius: 12px; margin-bottom: 10px;
-            cursor: pointer; display: flex; align-items: center; transition: 0.3s;
-            color: #94a3b8; font-weight: 600;
-        }
+        /* Sidebar UI */
+        .sidebar { width: 280px; background: var(--sidebar); color: white; height: 100vh; position: fixed; padding: 25px; box-sizing: border-box; }
+        .logo { font-size: 24px; font-weight: 800; color: var(--primary); margin-bottom: 40px; text-transform: uppercase; border-bottom: 1px solid #334155; padding-bottom: 15px; }
+        .nav-item { padding: 14px 18px; border-radius: 12px; cursor: pointer; display: flex; align-items: center; transition: 0.3s; color: #94a3b8; font-weight: 600; margin-bottom: 8px; }
+        .nav-item:hover, .nav-item.active { background: var(--primary); color: white; box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3); }
         .nav-item i { margin-right: 15px; width: 20px; }
-        .nav-item:hover, .nav-item.active { background: rgba(99, 102, 241, 0.15); color: white; }
-        .nav-item.active { background: var(--primary); }
 
         /* Main Content */
-        .main-content { margin-left: 280px; flex: 1; padding: 40px; }
-        
-        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
-        .header h1 { font-size: 24px; margin: 0; }
+        .main { margin-left: 280px; flex: 1; padding: 40px; }
+        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 35px; }
+        .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; margin-bottom: 35px; }
+        .stat-card { background: white; padding: 25px; border-radius: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.03); border: 1px solid #f1f5f9; }
+        .stat-card h3 { margin: 0; color: #64748b; font-size: 14px; text-transform: uppercase; }
+        .stat-card div { font-size: 28px; font-weight: 800; margin-top: 10px; color: var(--sidebar); }
 
-        .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; margin-bottom: 40px; }
-        .stat-card {
-            background: var(--white); padding: 25px; border-radius: 20px;
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); display: flex; align-items: center;
-        }
-        .stat-icon {
-            width: 50px; height: 50px; border-radius: 12px; display: flex;
-            align-items: center; justify-content: center; margin-right: 20px; font-size: 20px;
-        }
-
-        /* Table Design */
-        .card { background: var(--white); border-radius: 20px; padding: 25px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); }
+        /* Tables UI */
+        .card { background: white; border-radius: 24px; padding: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.04); border: 1px solid #f1f5f9; }
         table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-        th { text-align: left; padding: 15px; color: var(--text-muted); font-size: 13px; border-bottom: 1px solid #f1f5f9; }
-        td { padding: 18px 15px; border-bottom: 1px solid #f1f5f9; font-size: 14px; font-weight: 500; }
-        
-        .badge { padding: 5px 12px; border-radius: 20px; font-size: 11px; font-weight: 700; text-transform: uppercase; }
-        .badge-active { background: #dcfce7; color: #15803d; }
-        .badge-banned { background: #fee2e2; color: #b91c1c; }
+        th { text-align: left; padding: 18px; color: #64748b; border-bottom: 1px solid #f1f5f9; font-size: 13px; font-weight: 700; }
+        td { padding: 18px; border-bottom: 1px solid #f1f5f9; font-size: 14px; font-weight: 600; }
 
-        .btn {
-            border: none; padding: 8px 15px; border-radius: 10px; cursor: pointer;
-            font-weight: 600; font-size: 12px; transition: 0.2s; margin-right: 5px;
-        }
-        .btn-edit { background: #e0e7ff; color: #4338ca; }
-        .btn-ban { background: #fee2e2; color: #b91c1c; }
-        .btn-unban { background: #dcfce7; color: #15803d; }
+        /* Actions */
+        .btn { padding: 10px 16px; border: none; border-radius: 12px; cursor: pointer; font-weight: 700; font-size: 12px; transition: 0.2s; display: inline-flex; align-items: center; gap: 8px; }
+        .btn-approve { background: #dcfce7; color: #15803d; }
+        .btn-reject { background: #fee2e2; color: #b91c1c; }
+        .btn-ban { background: #1e293b; color: #f8fafc; }
+        .btn-unban { background: #6366f1; color: #ffffff; }
+        .btn-edit { background: #f1f5f9; color: #475569; }
 
-        /* Modal */
-        .modal { position: fixed; inset: 0; background: rgba(0,0,0,0.6); display: none; align-items: center; justify-content: center; z-index: 1000; backdrop-filter: blur(4px); }
-        .modal-content { background: white; padding: 35px; border-radius: 24px; width: 380px; text-align: center; }
-        input { width: 100%; padding: 12px; margin: 20px 0; border: 1px solid #e2e8f0; border-radius: 10px; outline: none; }
+        .badge { padding: 6px 12px; border-radius: 30px; font-size: 11px; font-weight: 800; text-transform: uppercase; }
+        .status-active { background: #dcfce7; color: #15803d; }
+        .status-banned { background: #fee2e2; color: #b91c1c; }
+
+        /* Loader */
+        .loader { text-align: center; padding: 50px; color: var(--primary); font-weight: bold; }
     </style>
 </head>
 <body>
 
 <div class="sidebar">
-    <div class="logo">Sky<span>Money</span></div>
-    <ul class="nav-menu">
-        <li class="nav-item active" onclick="switchTab('users', this)"><i class="fas fa-users"></i> Users</li>
-        <li class="nav-item" onclick="switchTab('requests', this)"><i class="fas fa-money-bill-transfer"></i> Requests</li>
-    </ul>
+    <div class="logo">Sky Money AI</div>
+    <div class="nav-item active" onclick="switchTab('users', this)"><i class="fas fa-users-cog"></i> User Control</div>
+    <div class="nav-item" onclick="switchTab('requests', this)"><i class="fas fa-exchange-alt"></i> Pending Req</div>
+    <div class="nav-item" onclick="location.reload()"><i class="fas fa-sync-alt"></i> Refresh System</div>
 </div>
 
-<div class="main-content">
+<div class="main">
     <div class="header">
-        <h1>Dashboard Overview</h1>
-        <button class="btn btn-edit" onclick="loadData()"><i class="fas fa-sync"></i> Refresh Data</button>
+        <h1 style="margin:0; font-size: 28px; font-weight: 800;">System Dashboard</h1>
+        <div id="live-indicator" style="background:#10b981; color:white; padding:5px 15px; border-radius:20px; font-size:12px; font-weight:700;"><i class="fas fa-circle"></i> LIVE SYNC</div>
     </div>
 
-    <div class="stats-grid">
-        <div class="stat-card">
-            <div class="stat-icon" style="background: #e0e7ff; color: #4338ca;"><i class="fas fa-user-group"></i></div>
-            <div><small style="color:var(--text-muted)">Total Users</small><div id="total-users" style="font-size:22px; font-weight:800;">0</div></div>
-        </div>
-        <div class="stat-card">
-            <div class="stat-icon" style="background: #dcfce7; color: #15803d;"><i class="fas fa-wallet"></i></div>
-            <div><small style="color:var(--text-muted)">System Balance</small><div id="total-bal" style="font-size:22px; font-weight:800;">Rs. 0</div></div>
-        </div>
-        <div class="stat-card">
-            <div class="stat-icon" style="background: #fef3c7; color: #b45309;"><i class="fas fa-clock"></i></div>
-            <div><small style="color:var(--text-muted)">Pending Tasks</small><div id="pending-count" style="font-size:22px; font-weight:800;">0</div></div>
-        </div>
+    <div class="stats">
+        <div class="stat-card"><h3>Active Members</h3><div id="st-users">0</div></div>
+        <div class="stat-card"><h3>Total Float</h3><div id="st-bal">Rs. 0</div></div>
+        <div class="stat-card"><h3>Pending Alerts</h3><div id="st-req" style="color:var(--danger)">0</div></div>
     </div>
 
     <div id="users-tab" class="card">
-        <h3>User Management</h3>
+        <h3 style="margin-top:0;">User Management & Access Control</h3>
         <table>
             <thead>
                 <tr>
-                    <th>User Email</th>
-                    <th>Balance</th>
-                    <th>Referral</th>
+                    <th>Member Email</th>
+                    <th>Wallet Balance</th>
                     <th>Status</th>
                     <th>Actions</th>
                 </tr>
@@ -129,15 +87,15 @@
     </div>
 
     <div id="requests-tab" class="card" style="display:none;">
-        <h3>Transaction Requests</h3>
+        <h3 style="margin-top:0;">Financial Authorization (Pending)</h3>
         <table>
             <thead>
                 <tr>
                     <th>User</th>
                     <th>Type</th>
                     <th>Amount</th>
-                    <th>Details</th>
-                    <th>Actions</th>
+                    <th>TXID / ID</th>
+                    <th>Decision</th>
                 </tr>
             </thead>
             <tbody id="req-body"></tbody>
@@ -145,20 +103,9 @@
     </div>
 </div>
 
-<div id="editModal" class="modal">
-    <div class="modal-content">
-        <h2 id="edit-title">Edit Balance</h2>
-        <input type="number" id="new-balance-input">
-        <div style="display:flex; gap: 10px;">
-            <button class="btn btn-edit" style="flex:1; padding:12px;" onclick="saveBalance()">Update</button>
-            <button class="btn btn-ban" style="flex:1; padding:12px;" onclick="closeModal()">Cancel</button>
-        </div>
-    </div>
-</div>
-
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-    import { getFirestore, collection, getDocs, doc, updateDoc, arrayUnion } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+    import { getFirestore, collection, doc, updateDoc, onSnapshot, getDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
     const firebaseConfig = {
         apiKey: "AIzaSyA-LrdE3qEML4bk4KXnyFtoy4OQ4Of2IC4",
@@ -172,95 +119,107 @@
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
 
-    let currentUid = "";
+    // AI Syncing Data
+    function syncSystem() {
+        onSnapshot(collection(db, "users"), (snapshot) => {
+            const uBody = document.getElementById('user-body');
+            const rBody = document.getElementById('req-body');
+            uBody.innerHTML = ""; rBody.innerHTML = "";
 
-    async function loadData() {
-        const querySnapshot = await getDocs(collection(db, "users"));
-        const userBody = document.getElementById('user-body');
-        const reqBody = document.getElementById('req-body');
-        
-        userBody.innerHTML = "";
-        reqBody.innerHTML = "";
-        
-        let totalUsers = 0;
-        let totalBal = 0;
-        let pending = 0;
+            let usersCount = 0; let totalFloat = 0; let pendCount = 0;
 
-        querySnapshot.forEach((userDoc) => {
-            const user = userDoc.data();
-            const uid = userDoc.id;
-            totalUsers++;
-            totalBal += (user.bal || 0);
+            snapshot.forEach((userDoc) => {
+                const u = userDoc.data();
+                const uid = userDoc.id;
+                usersCount++;
+                totalFloat += (u.bal || 0);
 
-            // Populate User Table
-            userBody.innerHTML += `
-                <tr>
-                    <td>${user.email}</td>
-                    <td><b>Rs. ${user.bal || 0}</b></td>
-                    <td><code>${user.refCode || 'N/A'}</code></td>
-                    <td><span class="badge ${user.isBanned ? 'badge-banned' : 'badge-active'}">${user.isBanned ? 'Banned' : 'Active'}</span></td>
-                    <td>
-                        <button class="btn btn-edit" onclick="openEdit('${uid}', ${user.bal || 0})">Edit Bal</button>
-                        <button class="btn ${user.isBanned ? 'btn-unban' : 'btn-ban'}" onclick="toggleUserStatus('${uid}', ${user.isBanned})">
-                            ${user.isBanned ? 'Unban' : 'Ban User'}
-                        </button>
-                    </td>
-                </tr>
-            `;
+                // User Row
+                uBody.innerHTML += `
+                    <tr>
+                        <td>${u.email}</td>
+                        <td><b>Rs. ${(u.bal || 0).toLocaleString()}</b></td>
+                        <td><span class="badge ${u.isBanned ? 'status-banned' : 'status-active'}">${u.isBanned ? 'Blocked' : 'Verified'}</span></td>
+                        <td>
+                            <button class="btn btn-edit" onclick="editBalance('${uid}', ${u.bal})"><i class="fas fa-coins"></i></button>
+                            <button class="btn ${u.isBanned ? 'btn-unban' : 'btn-ban'}" onclick="setUserStatus('${uid}', ${u.isBanned})">
+                                <i class="fas ${u.isBanned ? 'fa-unlock' : 'fa-user-slash'}"></i> ${u.isBanned ? 'Unblock' : 'Block'}
+                            </button>
+                        </td>
+                    </tr>
+                `;
 
-            // Populate Requests Table
-            if(user.requests) {
-                user.requests.forEach((req, index) => {
-                    if(req.status === 'pending') {
-                        pending++;
-                        reqBody.innerHTML += `
-                            <tr>
-                                <td>${user.email}</td>
-                                <td><b style="color:${req.type === 'deposit' ? 'green' : 'red'}">${req.type.toUpperCase()}</b></td>
-                                <td>Rs. ${req.amount}</td>
-                                <td>${req.payID || 'Bank Transfer'}</td>
-                                <td>
-                                    <button class="btn btn-unban" onclick="processReq('${uid}', ${index}, 'approved')">Approve</button>
-                                    <button class="btn btn-ban" onclick="processReq('${uid}', ${index}, 'rejected')">Reject</button>
-                                </td>
-                            </tr>
-                        `;
-                    }
-                });
-            }
+                // Requests Row
+                if (u.requests) {
+                    u.requests.forEach((req, idx) => {
+                        if (req.status === 'pending') {
+                            pendCount++;
+                            rBody.innerHTML += `
+                                <tr>
+                                    <td>${u.email}</td>
+                                    <td><b style="color:${req.type === 'deposit' ? '#10b981' : '#ef4444'}">${req.type.toUpperCase()}</b></td>
+                                    <td>Rs. ${req.amount}</td>
+                                    <td><small>${req.payID || 'N/A'}</small></td>
+                                    <td>
+                                        <button class="btn btn-approve" onclick="processRequest('${uid}', ${idx}, 'approved')"><i class="fas fa-check"></i> Approve</button>
+                                        <button class="btn btn-reject" onclick="processRequest('${uid}', ${idx}, 'rejected')"><i class="fas fa-times"></i> Reject</button>
+                                    </td>
+                                </tr>
+                            `;
+                        }
+                    });
+                }
+            });
+
+            document.getElementById('st-users').innerText = usersCount;
+            document.getElementById('st-bal').innerText = "Rs. " + totalFloat.toLocaleString();
+            document.getElementById('st-req').innerText = pendCount;
         });
-
-        document.getElementById('total-users').innerText = totalUsers;
-        document.getElementById('total-bal').innerText = "Rs. " + totalBal.toLocaleString();
-        document.getElementById('pending-count').innerText = pending;
     }
 
-    window.openEdit = (uid, bal) => {
-        currentUid = uid;
-        document.getElementById('new-balance-input').value = bal;
-        document.getElementById('editModal').style.display = 'flex';
-    };
+    // Process Deposit/Withdraw
+    window.processRequest = async (uid, reqIdx, decision) => {
+        const uRef = doc(db, "users", uid);
+        const snap = await getDoc(uRef);
+        const data = snap.data();
+        const req = data.requests[reqIdx];
 
-    window.saveBalance = async () => {
-        const newBal = parseInt(document.getElementById('new-balance-input').value);
-        await updateDoc(doc(db, "users", currentUid), { bal: newBal });
-        closeModal();
-        loadData();
-    };
+        if (confirm(`ඔබට මෙම ${req.type} ඉල්ලීම ${decision} කිරීමට අවශ්‍යද?`)) {
+            let newRequests = [...data.requests];
+            newRequests[reqIdx].status = decision;
 
-    window.toggleUserStatus = async (uid, currentStatus) => {
-        if(confirm("මෙම පරිශීලකයාගේ තත්ත්වය වෙනස් කිරීමට අවශ්‍යද?")) {
-            await updateDoc(doc(db, "users", uid), { isBanned: !currentStatus });
-            loadData();
+            let newBal = data.bal || 0;
+            // Approve උනොත් පමණක් balance එක වෙනස් කිරීම
+            if (decision === 'approved') {
+                if (req.type === 'deposit') newBal += parseInt(req.amount);
+                if (req.type === 'withdraw') {
+                    // Withdraw වලදී balance එක අඩු කිරීම ලියාපදිංචි වන විටම සිදුවන ලෙස user app එකේ ඇති නිසා මෙතනදී අවශ්‍ය නොවේ.
+                    // නමුත් user app එකේ balance එක අඩු නොවී මෙතනට එනවා නම් මෙතනදී අඩු කළ යුතුය.
+                }
+            } else if (decision === 'rejected' && req.type === 'withdraw') {
+                // Withdraw reject කළොත් කැපුණු මුදල නැවත ලබා දීම
+                newBal += parseInt(req.amount);
+            }
+
+            await updateDoc(uRef, { requests: newRequests, bal: newBal });
+            alert("සාර්ථකයි!");
         }
     };
 
-    window.processReq = async (uid, reqIndex, newStatus) => {
-        // Firestore Array එකක් ඇතුලේ තියන Object එකක් update කරන්න නම් සම්පූර්ණ array එක ගෙන edit කර නැවත යැවිය යුතුය.
-        const userRef = doc(db, "users", uid);
-        const userDoc = await getDocs(collection(db, "users")); // Simple method for small apps
-        // සටහන: මෙහිදී Array update logic එක සරල කර ඇත.
-        alert("Request " + newStatus);
+    // User Blocking / Banning
+    window.setUserStatus = async (uid, currentStatus) => {
+        const msg = currentStatus ? "මෙම User ව Unblock කිරීමට අවශ්‍යද?" : "මෙම User ව Block කිරීමට අවශ්‍යද? (මොහුට පද්ධතියට ලොග් වීමට නොහැකි වනු ඇත)";
+        if (confirm(msg)) {
+            await updateDoc(doc(db, "users", uid), { isBanned: !currentStatus });
+        }
+    };
+
+    // Manual Balance Edit
+    window.editBalance = async (uid, currentBal) => {
+        const amt = prompt("නව ශේෂය ඇතුළත් කරන්න (New Balance):", currentBal);
+        if (amt !== null) {
+            await updateDoc(doc(db, "users", uid), { bal: parseInt(amt) });
+        }
     };
 
     window.switchTab = (tab, el) => {
@@ -270,9 +229,7 @@
         el.classList.add('active');
     };
 
-    window.closeModal = () => document.getElementById('editModal').style.display = 'none';
-
-    window.onload = loadData;
+    syncSystem();
 </script>
 </body>
 </html>
